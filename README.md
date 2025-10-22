@@ -19,8 +19,8 @@ TODO: Fill in this table with correct information.
 | UCSBOrganization          | Avaneesh     | AvaneeshVinothK |
 | RecommendationRequest     | Sagnik       | SagnikBiswasUCSB|
 | MenuItemReview            | Tara         | tara-rezaei     |
-| HelpRequest               | Ethan Kim    | Wooblz          |
-| Articles                  | Jeremiah     |  Kosnax         |
+| HelpRequest               | Jeremiah     | Kosnax          |
+| Articles                  | Ethan Kim    | wooblz          |
 
 Remember though, that in spite of these initial  assignments, it is still
 a team project.  Please help other team members to finish their work
