@@ -6,4 +6,4 @@ import org.springframework.stereotype.Repository;
 
 /** The UCSBOrganizationRepository is a repository for UCSBOrganization entities. */
 @Repository
-public interface UCSBOrganizationRepository extends CrudRepository<UCSBOrganization, Long> {}
+public interface UCSBOrganizationRepository extends CrudRepository<UCSBOrganization, String> {}
