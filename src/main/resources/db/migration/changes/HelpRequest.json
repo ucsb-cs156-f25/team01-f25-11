@@ -12,7 +12,7 @@
               "not": [
                 {
                   "tableExists": {
-                    "tableName": "HELPREQUESTS"
+                    "tableName": "helprequests"
                   }
                 }
               ]
@@ -27,7 +27,7 @@
                       "autoIncrement": true,
                       "constraints": {
                         "primaryKey": true,
-                        "primaryKeyName": "HELPREQUESTS_PK"
+                        "primaryKeyName": "helprequests_pk"
                       },
                       "name": "ID",
                       "type": "BIGINT"
@@ -35,42 +35,42 @@
                 },
                 {
                     "column": {
-                      "name": "REQUESTER_EMAIL",
+                      "name": "requester_email",
                       "type": "VARCHAR(255)"
                     }
                   },
                   {
                     "column": {
-                      "name": "TEAM_Id",
+                      "name": "team_id",
                       "type": "VARCHAR(255)"
                     }
                   },
                   {
                     "column": {
-                      "name": "TABLE_OR_BREAKOUT_ROOM",
+                      "name": "table_or_breakout_room",
                       "type": "VARCHAR(255)"
                     }
                   },
                   {
                     "column": {
-                      "name": "REQUEST_TIME",
+                      "name": "request_time",
                       "type": "TIMESTAMP"
                     }
                   },
                   {
                     "column": {
-                      "name": "EXPLANATION",
+                      "name": "explanation",
                       "type": "VARCHAR(255)"
                     }
                   },
                   {
                     "column": {
-                      "name": "SOLVED",
+                      "name": "solved",
                       "type": "BOOLEAN"
                     }
                   }
                 ],
-                "tableName": "HELPREQUESTS"
+                "tableName": "helprequests"
               }
             }
           ]
