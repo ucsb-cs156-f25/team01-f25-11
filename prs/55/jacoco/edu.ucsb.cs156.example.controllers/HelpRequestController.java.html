@@ -46,7 +46,7 @@ import org.springframework.web.bind.annotation.RestController;
    * @param id the id of the help request
    * @return a HelpRequest
    */
-  @Operation(summary = &quot;Get a single date&quot;)
+  @Operation(summary = &quot;Get a single help request&quot;)
   @PreAuthorize(&quot;hasRole('ROLE_USER')&quot;)
   @GetMapping(&quot;&quot;)
   public HelpRequest getById(@Parameter(name = &quot;id&quot;) @RequestParam Long id) {
