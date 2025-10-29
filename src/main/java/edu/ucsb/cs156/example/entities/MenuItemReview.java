@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Entity(name = "")
+@Entity(name = "menuitemreview")
 public class User {
 
   @Id
