@@ -89,9 +89,9 @@ public class UCSBOrganizationController extends ApiController {
   }
 
   /**
-   * Delete a diningcommons. Accessible only to users with the role "ROLE_ADMIN".
+   * Delete an organization. Accessible only to users with the role "ROLE_ADMIN".
    *
-   * @param code code of the commons
+   * @param orgCode code of the organization
    * @return a message indiciating the commons was deleted
    */
   @Operation(summary = "Delete an organization")
