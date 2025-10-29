@@ -8,9 +8,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * This is a JPA entity that represents a UCSBDiningCommons
+ * This is a JPA entity that represents a UCSBDiningCommonsMenuItem
  *
- * <p>A UCSBDiningCommons is a dining commons at UCSB
+ * <p>A UCSBDiningCommonsMenuItem is a menu item at a UCSB dining commons
  */
 @Data
 @AllArgsConstructor
