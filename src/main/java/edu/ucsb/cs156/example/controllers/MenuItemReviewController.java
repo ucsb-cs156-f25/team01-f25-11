@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @Tag(name = "MenuItemReviews")
-@RequestMapping("/api/MenuItemReview")
+@RequestMapping("/api/menuitemreview")
 @RestController
 @Slf4j
 public class MenuItemReviewController extends ApiController {
@@ -29,7 +29,7 @@ public class MenuItemReviewController extends ApiController {
   /**
    * List all MENUITEMREVIEWS
    *
-   * @return an iterable of UCSBDate
+   * @return an iterable of MENUITEMREVIEW
    */
   @Operation(summary = "List all menu item reviews")
   @PreAuthorize("hasRole('ROLE_USER')")
