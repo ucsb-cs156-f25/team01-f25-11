@@ -2,6 +2,7 @@ package edu.ucsb.cs156.example.controllers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -18,6 +19,8 @@ import edu.ucsb.cs156.example.testconfig.TestConfig;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Map;
+import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -192,5 +195,58 @@ public class MenuItemReviewControllerTests extends ControllerTestCase {
     assertEquals(3, capturedReview.getStars());
     assertEquals(ldt, capturedReview.getDateReviewed());
     assertEquals("Captured!", capturedReview.getComments());
+  }
+
+  // tests for getById-- 2 cases to test: (1) when Id exists, (2) when id does not exist
+
+  // test for case 1-- id exists
+  @Test
+  @WithMockUser(roles = {"USER"})
+  public void test_get_by_id_when_id_exists() throws Exception {
+    // arrange
+    LocalDateTime ldt = LocalDateTime.parse("2022-01-03T00:00:00");
+
+    MenuItemReview menuItemReview =
+        MenuItemReview.builder()
+            .id(7L)
+            .itemId(1L)
+            .reviewerEmail("example@example.com")
+            .stars(4)
+            .dateReviewed(ldt)
+            .comments("pretty slay tbh!")
+            .build();
+
+    when(menuItemReviewRepository.findById(eq(7L))).thenReturn(Optional.of(menuItemReview));
+
+    // act
+    MvcResult response =
+        mockMvc.perform(get("/api/menuitemreview?id=7")).andExpect(status().isOk()).andReturn();
+
+    // assert
+    verify(menuItemReviewRepository, times(1)).findById(eq(7L));
+    String expectedJson = mapper.writeValueAsString(menuItemReview);
+    String responseString = response.getResponse().getContentAsString();
+    assertEquals(expectedJson, responseString);
+  }
+
+  // test for case 2-- id does not exist -- should return id 123
+  @Test
+  @WithMockUser(roles = {"USER"})
+  public void test_get_by_id_when_id_does_not_exist() throws Exception {
+    // arrange
+    when(menuItemReviewRepository.findById(eq(7L))).thenReturn(Optional.empty());
+
+    // act
+    MvcResult response =
+        mockMvc
+            .perform(get("/api/menuitemreview?id=7"))
+            .andExpect(status().isNotFound())
+            .andReturn();
+
+    // assert
+    verify(menuItemReviewRepository, times(1)).findById(eq(7L));
+    Map<String, Object> json = responseToJson(response);
+    assertEquals("EntityNotFoundException", json.get("type"));
+    assertEquals("MenuItemReview with id 7 not found", json.get("message"));
   }
 }
