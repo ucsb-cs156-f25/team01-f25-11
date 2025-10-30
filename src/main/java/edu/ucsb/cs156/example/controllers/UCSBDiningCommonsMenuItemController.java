@@ -2,6 +2,7 @@ package edu.ucsb.cs156.example.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import edu.ucsb.cs156.example.entities.UCSBDiningCommonsMenuItem;
+import edu.ucsb.cs156.example.errors.EntityNotFoundException;
 import edu.ucsb.cs156.example.repositories.UCSBDiningCommonsMenuItemRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -29,6 +30,18 @@ public class UCSBDiningCommonsMenuItemController extends ApiController {
   public Iterable<UCSBDiningCommonsMenuItem> allUCSBDiningCommonsMenuItems() {
     Iterable<UCSBDiningCommonsMenuItem> items = ucsbDiningCommonsMenuItemRepository.findAll();
     return items;
+  }
+
+  @Operation(summary = "Get a single UCSB Dining Commons Menu Item by id")
+  @PreAuthorize("hasRole('ROLE_USER')")
+  @GetMapping("")
+  public UCSBDiningCommonsMenuItem getUCSBDiningCommonsMenuItemById(
+      @Parameter(name = "id") @RequestParam Long id) {
+    UCSBDiningCommonsMenuItem ucsbDiningCommonsMenuItem =
+        ucsbDiningCommonsMenuItemRepository
+            .findById(id)
+            .orElseThrow(() -> new EntityNotFoundException(UCSBDiningCommonsMenuItem.class, id));
+    return ucsbDiningCommonsMenuItem;
   }
 
   @Operation(summary = "Create a new UCSB Dining Commons Menu Item")
