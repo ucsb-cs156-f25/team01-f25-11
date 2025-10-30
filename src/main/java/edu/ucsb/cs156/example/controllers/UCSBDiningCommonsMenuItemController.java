@@ -11,6 +11,7 @@ import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -27,7 +28,7 @@ public class UCSBDiningCommonsMenuItemController extends ApiController {
 
   @Autowired UCSBDiningCommonsMenuItemRepository ucsbDiningCommonsMenuItemRepository;
 
-  @Operation(summary = "Get all UCSB Dining Commons Menu Items")
+  @Operation(summary = "Get all UCSBDiningCommonsMenuItems")
   @PreAuthorize("hasRole('ROLE_USER')")
   @GetMapping("/all")
   public Iterable<UCSBDiningCommonsMenuItem> allUCSBDiningCommonsMenuItems() {
@@ -35,7 +36,7 @@ public class UCSBDiningCommonsMenuItemController extends ApiController {
     return items;
   }
 
-  @Operation(summary = "Get a single UCSB Dining Commons Menu Item by id")
+  @Operation(summary = "Get a single UCSBDiningCommonsMenuItem by id")
   @PreAuthorize("hasRole('ROLE_USER')")
   @GetMapping("")
   public UCSBDiningCommonsMenuItem getUCSBDiningCommonsMenuItemById(
@@ -47,7 +48,7 @@ public class UCSBDiningCommonsMenuItemController extends ApiController {
     return ucsbDiningCommonsMenuItem;
   }
 
-  @Operation(summary = "Create a new UCSB Dining Commons Menu Item")
+  @Operation(summary = "Create a new UCSBDiningCommonsMenuItem")
   @PreAuthorize("hasRole('ROLE_ADMIN')")
   @PostMapping("/post")
   public UCSBDiningCommonsMenuItem postUCSBDiningCommonsMenuItem(
@@ -74,7 +75,7 @@ public class UCSBDiningCommonsMenuItemController extends ApiController {
    * @param incoming the new menu item
    * @return the updated menu item object
    */
-  @Operation(summary = "Update a single UCSB Dining Commons Menu Item")
+  @Operation(summary = "Update a single UCSBDiningCommonsMenuItem")
   @PreAuthorize("hasRole('ROLE_ADMIN')")
   @PutMapping("")
   public UCSBDiningCommonsMenuItem updateUCSBDiningCommonsMenuItem(
@@ -93,5 +94,24 @@ public class UCSBDiningCommonsMenuItemController extends ApiController {
     ucsbDiningCommonsMenuItemRepository.save(ucsbDiningCommonsMenuItem);
 
     return ucsbDiningCommonsMenuItem;
+  }
+
+  /**
+   * Delete a UCSB Dining Commons Menu Item
+   *
+   * @param id the id of the menu item to delete
+   * @return a message indicating the menu item was deleted
+   */
+  @Operation(summary = "Delete a UCSBDiningCommonsMenuItem")
+  @PreAuthorize("hasRole('ROLE_ADMIN')")
+  @DeleteMapping("")
+  public Object deleteUCSBDiningCommonsMenuItem(@Parameter(name = "id") @RequestParam Long id) {
+    UCSBDiningCommonsMenuItem ucsbDiningCommonsMenuItem =
+        ucsbDiningCommonsMenuItemRepository
+            .findById(id)
+            .orElseThrow(() -> new EntityNotFoundException(UCSBDiningCommonsMenuItem.class, id));
+
+    ucsbDiningCommonsMenuItemRepository.delete(ucsbDiningCommonsMenuItem);
+    return genericMessage("UCSBDiningCommonsMenuItem with id %s deleted".formatted(id));
   }
 }
